@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 
 
 
@@ -10,13 +10,6 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
 
 
 
@@ -75,7 +68,7 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="mysql, postgresql," />
@@ -87,7 +80,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
 
 
 
@@ -102,7 +95,7 @@
 <meta property="og:site_name" content="夜路漫漫">
 <meta property="og:description" content="在工作中由于数据量太大时mysql负载的压力，我们引入了greenplum做我们大数据量表格的数据库，选择greenplum的原因是它在解决大数据存储的同时，尽可能的保持了和mysql一样的操作逻辑（同是关系型数据库，使用sql查询），减小了我们的迁移成本，但是尽管如此，greenplum基于的postgresql引擎和mysql还是存在一定的差异，此文对目前遇到的问题进行了记录，以防止以后再次出">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-23T10:49:38.719Z">
+<meta property="og:updated_time" content="2017-11-23T10:56:53.575Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql与postgresql的区别">
 <meta name="twitter:description" content="在工作中由于数据量太大时mysql负载的压力，我们引入了greenplum做我们大数据量表格的数据库，选择greenplum的原因是它在解决大数据存储的同时，尽可能的保持了和mysql一样的操作逻辑（同是关系型数据库，使用sql查询），减小了我们的迁移成本，但是尽管如此，greenplum基于的postgresql引擎和mysql还是存在一定的差异，此文对目前遇到的问题进行了记录，以防止以后再次出">
@@ -114,9 +107,8 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
-    tabs: true,
     motion: true,
     duoshuo: {
       userId: '0',
@@ -140,7 +132,11 @@
 
 
 
-  <title>mysql与postgresql的区别 | 夜路漫漫</title>
+  <title> mysql与postgresql的区别 | 夜路漫漫 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
   
 
 
@@ -155,17 +151,13 @@
 
 
 
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -212,7 +204,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -222,7 +214,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/tags" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -258,11 +250,7 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/14/mysql与postgresql的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -280,7 +268,14 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">mysql与postgresql的区别</h1>
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                mysql与postgresql的区别
+              
+            
+          </h1>
         
 
         <div class="post-meta">
@@ -321,9 +316,7 @@
       </header>
     
 
-    
-    
-    
+
     <div class="post-body" itemprop="articleBody">
 
       
@@ -352,15 +345,21 @@
 
       
     </div>
-    
-    
-    
 
-    
+    <div>
+      
+        
 
-    
+      
+    </div>
 
-    
+    <div>
+      
+        
+
+      
+    </div>
+
 
     <footer class="post-footer">
       
@@ -372,7 +371,7 @@
       
 
       
-      
+        
       
 
       
@@ -380,10 +379,6 @@
       
       
     </footer>
-  </div>
-  
-  
-  
   </article>
 
 
@@ -393,7 +388,7 @@
     </div>
   </div>
 
-
+          
           </div>
           
 
@@ -419,7 +414,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
     <div class="sidebar-inner">
 
       
@@ -437,10 +431,10 @@
           
         </div>
         <nav class="site-state motion-element">
-
+        
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives/">
+              <a href="/archives">
                 <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">日志</span>
               </a>
@@ -450,13 +444,11 @@
           
 
           
-            
-            
             <div class="site-state-item site-state-tags">
-              
+              <a href="/tags">
                 <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 
@@ -528,7 +520,7 @@
         
       </div>
     
-
+    
   </div>
 
   
@@ -548,14 +540,6 @@
 
 
   
-
-
-
-
-
-
-
-
 
 
 
@@ -582,29 +566,30 @@
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
 
 
 
   
+  
 
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
 
 
 
   
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
 
 
   
@@ -613,6 +598,12 @@
 
 
 	
+
+
+
+
+
+  
 
 
 
@@ -639,15 +630,7 @@
 
 
 
-
-
-
   
-
-
-
-
-
   
 
   
@@ -657,6 +640,7 @@
   
 
   
+
 
   
 
