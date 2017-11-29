@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="夜路漫漫">
 <meta property="og:description" content="上篇文章提到我们使用了greenplum来代替mysql来适应数据规模较大的情况，同时尽量保证小的改动。服务端我们使用的是yii1.1版本，之所以不是2.0原因很简单，历史选择。但在使用greenplum的过程中我们发现某些查询下速度特别慢，后经过各种测试发现，一旦调用了prepare方法，在数据量较大时速度就会特别慢，怀疑时greenplum优化的问题，但由于使用的是dba自己改造后的版本，也就">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-29T10:08:44.028Z">
+<meta property="og:updated_time" content="2017-11-29T10:24:16.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii1.1版本下访问数据库时需要注意的问题">
 <meta name="twitter:description" content="上篇文章提到我们使用了greenplum来代替mysql来适应数据规模较大的情况，同时尽量保证小的改动。服务端我们使用的是yii1.1版本，之所以不是2.0原因很简单，历史选择。但在使用greenplum的过程中我们发现某些查询下速度特别慢，后经过各种测试发现，一旦调用了prepare方法，在数据量较大时速度就会特别慢，怀疑时greenplum优化的问题，但由于使用的是dba自己改造后的版本，也就">
@@ -458,31 +458,11 @@
 
     <div class="post-spread">
       
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
 </script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
+
       
     </div>
   </div>
