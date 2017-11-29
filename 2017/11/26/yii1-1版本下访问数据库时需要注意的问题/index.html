@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,6 +10,13 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
@@ -68,19 +75,19 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="greenplum,yii,emulate prepare," />
-
-
-
+  <meta name="keywords" content="yii,greenplum,emulate prepare," />
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
 
 
 
@@ -88,14 +95,14 @@
 
 
 <meta name="description" content="上篇文章提到我们使用了greenplum来代替mysql来适应数据规模较大的情况，同时尽量保证小的改动。服务端我们使用的是yii1.1版本，之所以不是2.0原因很简单，历史选择。但在使用greenplum的过程中我们发现某些查询下速度特别慢，后经过各种测试发现，一旦调用了prepare方法，在数据量较大时速度就会特别慢">
-<meta name="keywords" content="greenplum,yii,emulate prepare">
+<meta name="keywords" content="yii,greenplum,emulate prepare">
 <meta property="og:type" content="article">
 <meta property="og:title" content="yii1.1版本下访问数据库时需要注意的问题">
 <meta property="og:url" content="http://yoursite.com/2017/11/26/yii1-1版本下访问数据库时需要注意的问题/index.html">
 <meta property="og:site_name" content="夜路漫漫">
 <meta property="og:description" content="上篇文章提到我们使用了greenplum来代替mysql来适应数据规模较大的情况，同时尽量保证小的改动。服务端我们使用的是yii1.1版本，之所以不是2.0原因很简单，历史选择。但在使用greenplum的过程中我们发现某些查询下速度特别慢，后经过各种测试发现，一旦调用了prepare方法，在数据量较大时速度就会特别慢，怀疑时greenplum优化的问题，但由于使用的是dba自己改造后的版本，也就">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-28T12:55:46.109Z">
+<meta property="og:updated_time" content="2017-11-29T02:26:37.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii1.1版本下访问数据库时需要注意的问题">
 <meta name="twitter:description" content="上篇文章提到我们使用了greenplum来代替mysql来适应数据规模较大的情况，同时尽量保证小的改动。服务端我们使用的是yii1.1版本，之所以不是2.0原因很简单，历史选择。但在使用greenplum的过程中我们发现某些查询下速度特别慢，后经过各种测试发现，一旦调用了prepare方法，在数据量较大时速度就会特别慢，怀疑时greenplum优化的问题，但由于使用的是dba自己改造后的版本，也就">
@@ -107,8 +114,9 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
+    tabs: true,
     motion: true,
     duoshuo: {
       userId: '0',
@@ -132,11 +140,7 @@
 
 
 
-  <title> yii1.1版本下访问数据库时需要注意的问题 | 夜路漫漫 </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>yii1.1版本下访问数据库时需要注意的问题 | 夜路漫漫</title>
   
 
 
@@ -151,13 +155,17 @@
 
 
 
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -204,7 +212,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -214,7 +222,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -250,7 +258,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/26/yii1-1版本下访问数据库时需要注意的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -268,14 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                yii1.1版本下访问数据库时需要注意的问题
-              
-            
-          </h1>
+          <h1 class="post-title" itemprop="name headline">yii1.1版本下访问数据库时需要注意的问题</h1>
         
 
         <div class="post-meta">
@@ -316,7 +321,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -330,29 +337,23 @@
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
-    <div>
-      
-        
-
-      
-    </div>
-
+    
 
     <footer class="post-footer">
       
         <div class="post-tags">
           
-            <a href="/tags/greenplum/" rel="tag"># greenplum</a>
-          
             <a href="/tags/yii/" rel="tag"># yii</a>
+          
+            <a href="/tags/greenplum/" rel="tag"># greenplum</a>
           
             <a href="/tags/emulate-prepare/" rel="tag"># emulate prepare</a>
           
@@ -360,7 +361,7 @@
       
 
       
-        
+      
       
 
       
@@ -384,6 +385,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -393,7 +398,7 @@
     </div>
   </div>
 
-          
+
           </div>
           
 
@@ -419,6 +424,7 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
@@ -436,10 +442,10 @@
           
         </div>
         <nav class="site-state motion-element">
-        
+
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives">
+              <a href="/archives/">
                 <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">日志</span>
               </a>
@@ -449,11 +455,13 @@
           
 
           
+            
+            
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
+              
                 <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
-              </a>
+              
             </div>
           
 
@@ -525,7 +533,7 @@
         
       </div>
     
-    
+
   </div>
 
   
@@ -545,6 +553,14 @@
 
 
   
+
+
+
+
+
+
+
+
 
 
 
@@ -571,30 +587,29 @@
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
 
 
 
   
+  
 
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
 
 
   
 
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
 
 
   
@@ -603,12 +618,6 @@
 
 
 	
-
-
-
-
-
-  
 
 
 
@@ -635,8 +644,14 @@
 
 
 
+
+
+
   
-  
+
+
+
+
 
   
 
@@ -646,6 +661,7 @@
 
   
 
+  
 
   
 
