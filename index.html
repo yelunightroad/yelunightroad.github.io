@@ -285,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/26/hexo设置持续集成过程中遇到的一些问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/30/mysql中对多个字段进行去重计数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="邸宇飞">
@@ -304,7 +304,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/26/hexo设置持续集成过程中遇到的一些问题/" itemprop="url">hexo设置持续集成过程中遇到的一些问题</a></h2>
+                <a class="post-title-link" href="/2017/11/30/mysql中对多个字段进行去重计数/" itemprop="url">mysql中对多个字段进行去重计数</a></h2>
         
 
         <div class="post-meta">
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-26T19:42:55+00:00">
-                2017-11-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T18:45:45+00:00">
+                2017-11-30
               </time>
             
 
@@ -339,8 +339,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/博客/" itemprop="url" rel="index">
-                    <span itemprop="name">博客</span>
+                  <a href="/categories/sql相关/" itemprop="url" rel="index">
+                    <span itemprop="name">sql相关</span>
                   </a>
                 </span>
 
@@ -378,12 +378,38 @@
       
         
           
-          由于hexo d的方式来布置hexo博客不能满足多台计算机编辑以及备份的需求，所以参考Hexo的版本控制与持续集成的博客，进行了持续集成的配置，效果显著， 终于可以随时随地的编辑博客了。
-但是这个过程中也遇到一个问题，就是当我们使用第三方主题的时候（我使用的是next）主题文件夹不能上传到sourc
+          今天遇到了一个奇怪的bug，举例如下，假设有一张表table
+
+
+
+colA
+colB
+colC
+
+
+
+
+a1
+b1
+NULL
+
+
+a2
+b2
+NULL
+
+
+a3
+b3
+NULL
+
+
+
+当我们使用SELECT COUNT(DISTINCT colA,colB,colC) FROM talbe进行查询
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/26/hexo设置持续集成过程中遇到的一些问题/#more" rel="contents">
+            <a class="btn" href="/2017/11/30/mysql中对多个字段进行去重计数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -543,6 +569,155 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/26/yii1-1版本下访问数据库时需要注意的问题/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/26/hexo设置持续集成过程中遇到的一些问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邸宇飞">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夜路漫漫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/26/hexo设置持续集成过程中遇到的一些问题/" itemprop="url">hexo设置持续集成过程中遇到的一些问题</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-26T19:42:55+00:00">
+                2017-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/博客/" itemprop="url" rel="index">
+                    <span itemprop="name">博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          由于hexo d的方式来布置hexo博客不能满足多台计算机编辑以及备份的需求，所以参考Hexo的版本控制与持续集成的博客，进行了持续集成的配置，效果显著， 终于可以随时随地的编辑博客了。
+但是这个过程中也遇到一个问题，就是当我们使用第三方主题的时候（我使用的是next）主题文件夹不能上传到sourc
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/26/hexo设置持续集成过程中遇到的一些问题/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -774,7 +949,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -796,7 +971,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

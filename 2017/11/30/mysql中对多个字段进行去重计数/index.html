@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="greenplum,yii,emulate prepare," />
+  <meta name="keywords" content="mysql,count distinct," />
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="上篇文章提到我们使用了greenplum来代替mysql来适应数据规模较大的情况，同时尽量保证小的改动。服务端我们使用的是yii1.1版本，之所以不是2.0原因很简单，历史选择。但在使用greenplum的过程中我们发现某些查询下速度特别慢，后经过各种测试发现，一旦调用了prepare方法，在数据量较大时速度就会特别慢">
-<meta name="keywords" content="greenplum,yii,emulate prepare">
+<meta name="description" content="今天遇到了一个奇怪的bug，举例如下，假设有一张表table    colA colB colC     a1 b1 NULL   a2 b2 NULL   a3 b3 NULL    当我们使用SELECT COUNT(DISTINCT colA,colB,colC) FROM talbe进行查询时，返回的竟然是0。">
+<meta name="keywords" content="mysql,count distinct">
 <meta property="og:type" content="article">
-<meta property="og:title" content="yii1.1版本下访问数据库时需要注意的问题">
-<meta property="og:url" content="http://yoursite.com/2017/11/26/yii1-1版本下访问数据库时需要注意的问题/index.html">
+<meta property="og:title" content="mysql中对多个字段进行去重计数">
+<meta property="og:url" content="http://yoursite.com/2017/11/30/mysql中对多个字段进行去重计数/index.html">
 <meta property="og:site_name" content="夜路漫漫">
-<meta property="og:description" content="上篇文章提到我们使用了greenplum来代替mysql来适应数据规模较大的情况，同时尽量保证小的改动。服务端我们使用的是yii1.1版本，之所以不是2.0原因很简单，历史选择。但在使用greenplum的过程中我们发现某些查询下速度特别慢，后经过各种测试发现，一旦调用了prepare方法，在数据量较大时速度就会特别慢，怀疑时greenplum优化的问题，但由于使用的是dba自己改造后的版本，也就">
+<meta property="og:description" content="今天遇到了一个奇怪的bug，举例如下，假设有一张表table    colA colB colC     a1 b1 NULL   a2 b2 NULL   a3 b3 NULL    当我们使用SELECT COUNT(DISTINCT colA,colB,colC) FROM talbe进行查询时，返回的竟然是0。但是我们使用SELECT DISTINCT colA,colB,colC FRO">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-11-30T11:53:42.468Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yii1.1版本下访问数据库时需要注意的问题">
-<meta name="twitter:description" content="上篇文章提到我们使用了greenplum来代替mysql来适应数据规模较大的情况，同时尽量保证小的改动。服务端我们使用的是yii1.1版本，之所以不是2.0原因很简单，历史选择。但在使用greenplum的过程中我们发现某些查询下速度特别慢，后经过各种测试发现，一旦调用了prepare方法，在数据量较大时速度就会特别慢，怀疑时greenplum优化的问题，但由于使用的是dba自己改造后的版本，也就">
+<meta name="twitter:title" content="mysql中对多个字段进行去重计数">
+<meta name="twitter:description" content="今天遇到了一个奇怪的bug，举例如下，假设有一张表table    colA colB colC     a1 b1 NULL   a2 b2 NULL   a3 b3 NULL    当我们使用SELECT COUNT(DISTINCT colA,colB,colC) FROM talbe进行查询时，返回的竟然是0。但是我们使用SELECT DISTINCT colA,colB,colC FRO">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/11/26/yii1-1版本下访问数据库时需要注意的问题/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/11/30/mysql中对多个字段进行去重计数/"/>
 
 
 
 
 
-  <title>yii1.1版本下访问数据库时需要注意的问题 | 夜路漫漫</title>
+  <title>mysql中对多个字段进行去重计数 | 夜路漫漫</title>
   
 
 
@@ -289,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/26/yii1-1版本下访问数据库时需要注意的问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/30/mysql中对多个字段进行去重计数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="邸宇飞">
@@ -306,7 +306,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">yii1.1版本下访问数据库时需要注意的问题</h2>
+          <h2 class="post-title" itemprop="name headline">mysql中对多个字段进行去重计数</h2>
         
 
         <div class="post-meta">
@@ -318,8 +318,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-26T19:42:55+00:00">
-                2017-11-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T18:45:45+00:00">
+                2017-11-30
               </time>
             
 
@@ -341,19 +341,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web开发/" itemprop="url" rel="index">
-                    <span itemprop="name">web开发</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web开发/数据库访问/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库访问</span>
+                  <a href="/categories/sql相关/" itemprop="url" rel="index">
+                    <span itemprop="name">sql相关</span>
                   </a>
                 </span>
 
@@ -389,10 +378,38 @@
       
 
       
-        <p>上篇文章提到我们使用了greenplum来代替mysql来适应数据规模较大的情况，同时尽量保证小的改动。服务端我们使用的是yii1.1版本，之所以不是2.0原因很简单，历史选择。但在使用greenplum的过程中我们发现某些查询下速度特别慢，后经过各种测试发现，一旦调用了prepare方法，在数据量较大时速度就会特别慢，怀疑时greenplum优化的问题，但由于使用的是dba自己改造后的版本，也就没有深究其官方版本是不是也存在这样的bug。</p>
-<p>那么现在的问题就变成了我们使用的是CDbcommand模块queryAll方法，并没有调用其prepare方法，那么为什么还会慢的，阅读其源码发现，所有的query方法，最终都是靠queryInternal方法实现的，在该函数的32行我们不难发现，默认情况先总会调用prepare函数，所以即使我们没有显示的调用CDbcommand的prepare方法，最终还是难以避免这一点。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">queryInternal</span><span class="params">($method,$mode,$params=array<span class="params">()</span>)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		$params=array_merge(<span class="keyword">$this</span>-&gt;params,$params);</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;_connection-&gt;enableParamLogging &amp;&amp; ($pars=array_merge(<span class="keyword">$this</span>-&gt;_paramLog,$params))!==<span class="keyword">array</span>())</span><br><span class="line">		&#123;</span><br><span class="line">			$p=<span class="keyword">array</span>();</span><br><span class="line">			<span class="keyword">foreach</span>($pars <span class="keyword">as</span> $name=&gt;$value)</span><br><span class="line">				$p[$name]=$name.<span class="string">'='</span>.var_export($value,<span class="keyword">true</span>);</span><br><span class="line">			$par=<span class="string">'. Bound with '</span>.implode(<span class="string">', '</span>,$p);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			$par=<span class="string">''</span>;</span><br><span class="line">		Yii::trace(<span class="string">'Querying SQL: '</span>.<span class="keyword">$this</span>-&gt;getText().$par,<span class="string">'system.db.CDbCommand'</span>);</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;_connection-&gt;queryCachingCount&gt;<span class="number">0</span> &amp;&amp; $method!==<span class="string">''</span></span><br><span class="line">				&amp;&amp; <span class="keyword">$this</span>-&gt;_connection-&gt;queryCachingDuration&gt;<span class="number">0</span></span><br><span class="line">				&amp;&amp; <span class="keyword">$this</span>-&gt;_connection-&gt;queryCacheID!==<span class="keyword">false</span></span><br><span class="line">				&amp;&amp; ($cache=Yii::app()-&gt;getComponent(<span class="keyword">$this</span>-&gt;_connection-&gt;queryCacheID))!==<span class="keyword">null</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">$this</span>-&gt;_connection-&gt;queryCachingCount--;</span><br><span class="line">			$cacheKey=<span class="string">'yii:dbquery'</span>.<span class="string">':'</span>.$method.<span class="string">':'</span>.<span class="keyword">$this</span>-&gt;_connection-&gt;connectionString.<span class="string">':'</span>.<span class="keyword">$this</span>-&gt;_connection-&gt;username;</span><br><span class="line">			$cacheKey.=<span class="string">':'</span>.<span class="keyword">$this</span>-&gt;getText().<span class="string">':'</span>.serialize(array_merge(<span class="keyword">$this</span>-&gt;_paramLog,$params));</span><br><span class="line">			<span class="keyword">if</span>(($result=$cache-&gt;get($cacheKey))!==<span class="keyword">false</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				Yii::trace(<span class="string">'Query result found in cache'</span>,<span class="string">'system.db.CDbCommand'</span>);</span><br><span class="line">				<span class="keyword">return</span> $result[<span class="number">0</span>];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">try</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;_connection-&gt;enableProfiling)</span><br><span class="line">				Yii::beginProfile(<span class="string">'system.db.CDbCommand.query('</span>.<span class="keyword">$this</span>-&gt;getText().$par.<span class="string">')'</span>,<span class="string">'system.db.CDbCommand.query'</span>);</span><br><span class="line">			<span class="keyword">$this</span>-&gt;prepare();</span><br><span class="line">			<span class="keyword">if</span>($params===<span class="keyword">array</span>())</span><br><span class="line">				<span class="keyword">$this</span>-&gt;_statement-&gt;execute();</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				<span class="keyword">$this</span>-&gt;_statement-&gt;execute($params);</span><br><span class="line">			<span class="keyword">if</span>($method===<span class="string">''</span>)</span><br><span class="line">				$result=<span class="keyword">new</span> CDbDataReader(<span class="keyword">$this</span>);</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				$mode=(<span class="keyword">array</span>)$mode;</span><br><span class="line">				call_user_func_array(<span class="keyword">array</span>(<span class="keyword">$this</span>-&gt;_statement, <span class="string">'setFetchMode'</span>), $mode);</span><br><span class="line">				$result=<span class="keyword">$this</span>-&gt;_statement-&gt;$method();</span><br><span class="line">				<span class="keyword">$this</span>-&gt;_statement-&gt;closeCursor();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;_connection-&gt;enableProfiling)</span><br><span class="line">				Yii::endProfile(<span class="string">'system.db.CDbCommand.query('</span>.<span class="keyword">$this</span>-&gt;getText().$par.<span class="string">')'</span>,<span class="string">'system.db.CDbCommand.query'</span>);</span><br><span class="line">			<span class="keyword">if</span>(<span class="keyword">isset</span>($cache,$cacheKey))</span><br><span class="line">				$cache-&gt;set($cacheKey, <span class="keyword">array</span>($result), <span class="keyword">$this</span>-&gt;_connection-&gt;queryCachingDuration, <span class="keyword">$this</span>-&gt;_connection-&gt;queryCachingDependency);</span><br><span class="line">			<span class="keyword">return</span> $result;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span>(<span class="keyword">Exception</span> $e)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;_connection-&gt;enableProfiling)</span><br><span class="line">				Yii::endProfile(<span class="string">'system.db.CDbCommand.query('</span>.<span class="keyword">$this</span>-&gt;getText().$par.<span class="string">')'</span>,<span class="string">'system.db.CDbCommand.query'</span>);</span><br><span class="line">			$errorInfo=$e <span class="keyword">instanceof</span> PDOException ? $e-&gt;errorInfo : <span class="keyword">null</span>;</span><br><span class="line">			$message=$e-&gt;getMessage();</span><br><span class="line">			Yii::log(Yii::t(<span class="string">'yii'</span>,<span class="string">'CDbCommand::&#123;method&#125;() failed: &#123;error&#125;. The SQL statement executed was: &#123;sql&#125;.'</span>,</span><br><span class="line">				<span class="keyword">array</span>(<span class="string">'&#123;method&#125;'</span>=&gt;$method, <span class="string">'&#123;error&#125;'</span>=&gt;$message, <span class="string">'&#123;sql&#125;'</span>=&gt;<span class="keyword">$this</span>-&gt;getText().$par)),CLogger::LEVEL_ERROR,<span class="string">'system.db.CDbCommand'</span>);</span><br><span class="line">			<span class="keyword">if</span>(YII_DEBUG)</span><br><span class="line">				$message.=<span class="string">'. The SQL statement executed was: '</span>.<span class="keyword">$this</span>-&gt;getText().$par;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> CDbException(Yii::t(<span class="string">'yii'</span>,<span class="string">'CDbCommand failed to execute the SQL statement: &#123;error&#125;'</span>,</span><br><span class="line">				<span class="keyword">array</span>(<span class="string">'&#123;error&#125;'</span>=&gt;$message)),(int)$e-&gt;getCode(),$errorInfo);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<p>最终的解决方案是在配置中加了’emulatePrepare’ =&gt; true的配置，该配置项其实就是启用了pdo中的模拟预处理，用模拟预处理代替greenplum龟速的预处理，最终解决了该问题。</p>
+        <p>今天遇到了一个奇怪的bug，举例如下，假设有一张表table</p>
+<table>
+<thead>
+<tr>
+<th>colA</th>
+<th>colB</th>
+<th>colC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a1</td>
+<td>b1</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>a2</td>
+<td>b2</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>a3</td>
+<td>b3</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>当我们使用<code>SELECT COUNT(DISTINCT colA,colB,colC) FROM talbe</code>进行查询时，返回的竟然是0。但是我们使用<code>SELECT DISTINCT colA,colB,colC FROM talbe</code>可以正常获取三行数据，后来在<a href="https://stackoverflow.com/questions/18968963/select-countdistinct-error-on-multiple-columns" target="_blank" rel="noopener">Stack Overflow</a>上看到SQL_Server中count只支持三种格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">COUNT(*)</span><br><span class="line">COUNT(colName)</span><br><span class="line">COUNT(DISTINCT colName)</span><br></pre></td></tr></table></figure>
+<p>而查询mysql相关文档没看到这种说法，官方文档中只有count(*)的示例，所以只能认为也是相同的，最终将查询代码改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*) FROM (SELECT DISTINCT colA,colB,colC FROM talbe) A</span><br></pre></td></tr></table></figure>
+<p>成功的解决了问题，所以在多维度去重的情况下要特别注意，使用正确的语法。</p>
 
       
     </div>
@@ -410,11 +427,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/greenplum/" rel="tag"># greenplum</a>
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
           
-            <a href="/tags/yii/" rel="tag"># yii</a>
-          
-            <a href="/tags/emulate-prepare/" rel="tag"># emulate prepare</a>
+            <a href="/tags/count-distinct/" rel="tag"># count distinct</a>
           
         </div>
       
@@ -427,8 +442,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/26/hexo设置持续集成过程中遇到的一些问题/" rel="next" title="hexo设置持续集成过程中遇到的一些问题">
-                <i class="fa fa-chevron-left"></i> hexo设置持续集成过程中遇到的一些问题
+              <a href="/2017/11/26/yii1-1版本下访问数据库时需要注意的问题/" rel="next" title="yii1.1版本下访问数据库时需要注意的问题">
+                <i class="fa fa-chevron-left"></i> yii1.1版本下访问数据库时需要注意的问题
               </a>
             
           </div>
@@ -436,10 +451,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/30/mysql中对多个字段进行去重计数/" rel="prev" title="mysql中对多个字段进行去重计数">
-                mysql中对多个字段进行去重计数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
