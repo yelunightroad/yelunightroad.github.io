@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="TensorFlow,tfRecord,tf.contrib.learn.run_n," />
 
 
 
@@ -81,13 +81,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="夜路漫漫">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="tfRecord是TensorFlow官方推荐的标准数据格式，对于存储字典类型的数据比较友好，所以撰写此文记录一下使用过程中的一点经验。 tfRecord结构tfRecord中存储的记录由tf.train.Example定义，其实就是一个protocol buffer文件，定义如下： 123456789101112131415message Example &amp;#123; Features feat">
+<meta name="keywords" content="TensorFlow,tfRecord,tf.contrib.learn.run_n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow中tfRecord的使用以及测试">
+<meta property="og:url" content="http://yoursite.com/2018/04/09/tensorflow中tfRecord的使用以及测试/index.html">
 <meta property="og:site_name" content="夜路漫漫">
+<meta property="og:description" content="tfRecord是TensorFlow官方推荐的标准数据格式，对于存储字典类型的数据比较友好，所以撰写此文记录一下使用过程中的一点经验。 tfRecord结构tfRecord中存储的记录由tf.train.Example定义，其实就是一个protocol buffer文件，定义如下： 123456789101112131415message Example &amp;#123; Features feat">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-09T13:48:08.823Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="夜路漫漫">
+<meta name="twitter:title" content="TensorFlow中tfRecord的使用以及测试">
+<meta name="twitter:description" content="tfRecord是TensorFlow官方推荐的标准数据格式，对于存储字典类型的数据比较友好，所以撰写此文记录一下使用过程中的一点经验。 tfRecord结构tfRecord中存储的记录由tf.train.Example定义，其实就是一个protocol buffer文件，定义如下： 123456789101112131415message Example &amp;#123; Features feat">
 
 
 
@@ -117,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/09/tensorflow中tfRecord的使用以及测试/"/>
 
 
 
 
 
-  <title>夜路漫漫</title>
+  <title>TensorFlow中tfRecord的使用以及测试 | 夜路漫漫</title>
   
 
 
@@ -142,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -270,9 +274,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -302,9 +306,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/09/tensorflow中tfRecord的使用以及测试/" itemprop="url">TensorFlow中tfRecord的使用以及测试</a></h2>
+          <h2 class="post-title" itemprop="name headline">TensorFlow中tfRecord的使用以及测试</h2>
         
 
         <div class="post-meta">
@@ -376,20 +378,36 @@
       
 
       
-        
-          
-          tfRecord是TensorFlow官方推荐的标准数据格式，对于存储字典类型的数据比较友好，所以撰写此文记录一下使用过程中的一点经验。
-tfRecord结构tfRecord中存储的记录由tf.train.Example定义，其实就是一个protocol buffer文件，定义如下：
-1234567
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/09/tensorflow中tfRecord的使用以及测试/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p>tfRecord是TensorFlow官方推荐的标准数据格式，对于存储字典类型的数据比较友好，所以撰写此文记录一下使用过程中的一点经验。</p>
+<h2 id="tfRecord结构"><a href="#tfRecord结构" class="headerlink" title="tfRecord结构"></a>tfRecord结构</h2><p>tfRecord中存储的记录由tf.train.Example定义，其实就是一个protocol buffer文件，定义如下：</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Example</span> </span>&#123;</span><br><span class="line"> Features features = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Features</span></span>&#123;</span><br><span class="line"> map&lt;<span class="built_in">string</span>,Feature&gt; featrue = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Feature</span></span>&#123;</span><br><span class="line">    oneof kind&#123;</span><br><span class="line">        BytesList bytes_list = <span class="number">1</span>;</span><br><span class="line">        FloatList float_list = <span class="number">2</span>;</span><br><span class="line">        Int64List int64_list = <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看到其主要包含了一个字符串格式的key，以及字符串、浮点数或者整数类型的列表构成的value</p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">keys=[[<span class="number">1.0</span>,<span class="number">2.0</span>],[<span class="number">2.0</span>,<span class="number">3.0</span>],[<span class="number">1</span>,<span class="number">2</span>]]</span><br><span class="line">keys2=[[<span class="number">1.0</span>,<span class="number">2.0</span>],[<span class="number">2.0</span>,<span class="number">3.0</span>],[<span class="number">3.0</span>]]</span><br><span class="line"></span><br><span class="line">strtest=<span class="string">'aaa'</span></span><br><span class="line">sess=tf.InteractiveSession()</span><br><span class="line">sess.run(tf.global_variables_initializer())</span><br></pre></td></tr></table></figure>
+<p>基础变量，没什么可解释的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_example</span><span class="params">(key)</span>:</span></span><br><span class="line">    example = tf.train.Example(features=tf.train.Features(</span><br><span class="line">        feature=&#123;</span><br><span class="line">            <span class="string">'ft'</span>:tf.train.Feature(float_list=tf.train.FloatList(value=key)),</span><br><span class="line">            <span class="string">'st'</span>:tf.train.Feature(bytes_list=tf.train.BytesList(value=[strtest]))</span><br><span class="line">        &#125;</span><br><span class="line">    ))</span><br><span class="line">    <span class="keyword">return</span> example</span><br><span class="line"></span><br><span class="line">filename=<span class="string">"tmp.tfrecords"</span></span><br><span class="line"><span class="keyword">if</span> os.path.exists(filename):</span><br><span class="line">    os.remove(filename)</span><br><span class="line">writer = tf.python_io.TFRecordWriter(filename)</span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> keys:</span><br><span class="line">    ex = make_example(key)</span><br><span class="line">    writer.write(ex.SerializeToString())</span><br><span class="line">writer.close()</span><br><span class="line"></span><br><span class="line">reader = tf.TFRecordReader()</span><br><span class="line">filename_queue = tf.train.string_input_producer([<span class="string">"tmp.tfrecords"</span>],num_epochs=<span class="number">2</span>)</span><br><span class="line">_,serialized_example =reader.read(filename_queue)</span><br><span class="line"></span><br><span class="line">batch = tf.train.batch(tensors=[serialized_example],batch_size=<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>在以上代码中我们展示了如何定义一个example并将其写入文件，同事19行开始我们也对如何读取文件做了简单示例，现在读取部分也可以使用dataset，更加符合官方潮流，例如用一下代码代替19-23行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dataset = tf.data.TFRecordDataset(filenames=filenames, buffer_size=<span class="number">200</span>).batch(<span class="number">3</span>)</span><br><span class="line">record_iter = dataset.make_one_shot_iterator()</span><br></pre></td></tr></table></figure>
+<p>下面进入重头戏，如何解析tfRecord的内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">features=&#123;</span><br><span class="line">    <span class="string">"ft"</span>:tf.VarLenFeature(tf.float32),</span><br><span class="line">    <span class="string">"st"</span>:tf.VarLenFeature(tf.string)</span><br><span class="line">&#125;</span><br><span class="line">key_parsed = tf.parse_example(batch,features)</span><br><span class="line"></span><br><span class="line">sess.run(tf.initialize_local_variables())</span><br><span class="line"><span class="keyword">print</span> tf.contrib.learn.run_n(key_parsed) </span><br><span class="line"><span class="comment">#tf.train.get_or_create_global_step()</span></span><br><span class="line"><span class="comment">#print tf.contrib.training.train(key_parsed,'../')</span></span><br></pre></td></tr></table></figure>
+<p>输出如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&apos;ft&apos;: SparseTensorValue(indices=array([[0, 0],</span><br><span class="line">       [0, 1],</span><br><span class="line">       [1, 0],</span><br><span class="line">       [1, 1],</span><br><span class="line">       [2, 0],</span><br><span class="line">       [2, 1]]), values=array([1., 2., 2., 3., 1., 2.], dtype=float32), dense_shape=array([3, 2])), &apos;st&apos;: SparseTensorValue(indices=array([[0, 0],</span><br><span class="line">       [1, 0],</span><br><span class="line">       [2, 0]]), values=array([&apos;aaa&apos;, &apos;aaa&apos;, &apos;aaa&apos;], dtype=object), dense_shape=array([3, 1]))&#125;]</span><br></pre></td></tr></table></figure>
+<p>其实非常简单，定义一个同样的feature，然后用相应的方法获取就可以了，注意代码的第8行的方法已经废弃了，TensorFlow相关人员表示没有开发其替代函数的打算，想实现相应的效果可以使用第9、10行的代码，基本可以替代，但是做实验的话由于train方法其实是在训练，还是8行的函数简单些，在删除前我们暂且继续使用。</p>
+<p>在以上代码中我们使用的是VarlenFeature，它更通用一些，另外比较常见的还有FixedLenFeature，使用代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">features=&#123;</span><br><span class="line">    &quot;ft&quot;:tf.FixedLenFeature(shape=[2],dtype=tf.float32,default_value=[2.0,3.0])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">key_parsed = tf.parse_example(batch,features)</span><br><span class="line"></span><br><span class="line">print tf.contrib.learn.run_n(key_parsed)</span><br></pre></td></tr></table></figure>
+<p>输出结果为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&apos;ft&apos;: array([[1., 2.],</span><br><span class="line">       [2., 3.],</span><br><span class="line">       [1., 2.]], dtype=float32)&#125;]</span><br></pre></td></tr></table></figure>
+<p>这里需要注意的是它解析的数据必须是定长的，且数据格式与shape参数必须一致，否则就会报错。另外它返回的是一个tensor不同于VarLenFeature返回的是sparseTensor。这里default_value的意义是你查询的字段不存在时赋予默认值，比如你现在查询的是<em>ft</em>字段，如果存储时只存储了<em>st</em>那么就会使用默认值赋值，所以default_value，的shape必须与shape参数一致。</p>
+<p>有了以上两个参数基本可以解决我们的数据读写问题，如果还不够，可以了解一下SparseFeature，它可以以一种类似SparseTensor的方式帮你定义数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`serialized`:</span><br></pre></td></tr></table></figure>
+<p>  [<br>    features {<br>      feature { key: “val” value { float_list { value: [ 0.5, -1.0 ] } } }<br>      feature { key: “ix” value { int64_list { value: [ 3, 20 ] } } }<br>    },<br>    features {<br>      feature { key: “val” value { float_list { value: [ 0.0 ] } } }<br>      feature { key: “ix” value { int64_list { value: [ 42 ] } } }<br>    }<br>  ]<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">And arguments</span><br></pre></td></tr></table></figure></p>
+<p>  example_names: [“input0”, “input1”],<br>  features: {<br>      “sparse”: SparseFeature(<br>          index_key=”ix”, value_key=”val”, dtype=tf.float32, size=100),<br>  }<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Then the output is a dictionary:</span><br><span class="line">```python</span><br><span class="line">&#123;</span><br><span class="line">  &quot;sparse&quot;: SparseTensor(</span><br><span class="line">      indices=[[0, 3], [0, 20], [1, 42]],</span><br><span class="line">      values=[0.5, -1.0, 0.0]</span><br><span class="line">      dense_shape=[2, 100]),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 其它相关函数</span><br><span class="line"></span><br><span class="line">除了以上用到的parse_example方法，还有一些其它方法我们可以简单了解。</span><br><span class="line"></span><br><span class="line">### tf.parse_single_example</span><br><span class="line"></span><br><span class="line">该方法与tf.parse_example方法基本相同，只不过少了batch函数，单独解析</span><br><span class="line"></span><br><span class="line">### tf.parse_single_sequence_example</span><br><span class="line"></span><br><span class="line">说到这个方法我们就得提一下tf.train.SequenceExample，望文生义，它与tf.train.Example方法的不同之处在于它多了一个边长的list部分，定义如下</span><br></pre></td></tr></table></figure>
+<p>message SequenceExample {<br>  Features context = 1;<br>  FeatureLists feature_lists = 2;<br>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">我们以源码中电影打分示例来了解一下SequenceExample</span><br></pre></td></tr></table></figure></p>
+<p>// context: {<br>//   feature: {<br>//     key  : “locale”<br>//     value: {<br>//       bytes_list: {<br>//         value: [ “pt_BR” ]<br>//       }<br>//     }<br>//   }<br>//   feature: {<br>//     key  : “age”<br>//     value: {<br>//       float_list: {<br>//         value: [ 19.0 ]<br>//       }<br>//     }<br>//   }<br>//   feature: {<br>//     key  : “favorites”<br>//     value: {<br>//       bytes_list: {<br>//         value: [ “Majesty Rose”, “Savannah Outen”, “One Direction” ]<br>//       }<br>//     }<br>//   }<br>// }<br>// feature_lists: {<br>//   feature_list: {<br>//     key  : “movie_ratings”<br>//     value: {<br>//       feature: {<br>//         float_list: {<br>//           value: [ 4.5 ]<br>//         }<br>//       }<br>//       feature: {<br>//         float_list: {<br>//           value: [ 5.0 ]<br>//         }<br>//       }<br>//     }<br>//   }<br>//   feature_list: {<br>//     key  : “movie_names”<br>//     value: {<br>//       feature: {<br>//         bytes_list: {<br>//           value: [ “The Shawshank Redemption” ]<br>//         }<br>//       }<br>//       feature: {<br>//         bytes_list: {<br>//           value: [ “Fight Club” ]<br>//         }<br>//       }<br>//     }<br>//   }<br>//   feature_list: {<br>//     key  : “actors”<br>//     value: {<br>//       feature: {<br>//         bytes_list: {<br>//           value: [ “Tim Robbins”, “Morgan Freeman” ]<br>//         }<br>//       }<br>//       feature: {<br>//         bytes_list: {<br>//           value: [ “Brad Pitt”, “Edward Norton”, “Helena Bonham Carter” ]<br>//         }<br>//       }<br>//     }<br>//   }<br>// }<br>//<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这是一个用户的电影打分记录，context部分是这个用户不随时间变化的固定属性，而feature_list中就是他观看过的电影，电影的演员，以及对电影打分的记录，是可以一直记录下去的。</span><br><span class="line"></span><br><span class="line">官方总结的原则如下：</span><br></pre></td></tr></table></figure></p>
+<p>// Context:<br>//   - All conformant context features K must obey the same conventions as<br>//     a conformant Example’s features (see above).<br>// Feature lists:<br>//   - A FeatureList L may be missing in an example; it is up to the<br>//     parser configuration to determine if this is allowed or considered<br>//     an empty list (zero length).<br>//   - If a FeatureList L exists, it may be empty (zero length).<br>//   - If a FeatureList L is non-empty, all features within the FeatureList<br>//     must have the same data type T. Even across SequenceExamples, the type T<br>//     of the FeatureList identified by the same key must be the same. An entry<br>//     without any values may serve as an empty feature.<br>//   - If a FeatureList L is non-empty, it is up to the parser configuration<br>//     to determine if all features within the FeatureList must<br>//     have the same size.  The same holds for this FeatureList across multiple<br>//     examples.<br>```</p>
+<p>没有什么复杂的，只是讨论了数据缺失的可能性，另外需要注意list的长度是否固定取决于解析时的设置，例如使用FixedLenSequenceFeature时就会要求等长。</p>
+<p>而tf.parse_single_sequence_example就是解析此种数据格式的，与parse_example大同小异，这里就不展开了，也可以从<a href="https://blog.csdn.net/u010223750/article/details/70482498" title="Tensorflow高阶读写教程" target="_blank" rel="noopener">参考文献</a>中找到示例代码</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2>
       
     </div>
     
@@ -404,338 +422,40 @@ tfRecord结构tfRecord中存储的记录由tf.train.Example定义，其实就是
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/30/mysql中对多个字段进行去重计数/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邸宇飞">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜路漫漫">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/30/mysql中对多个字段进行去重计数/" itemprop="url">mysql中对多个字段进行去重计数</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T18:45:45+00:00">
-                2017-11-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sql相关/" itemprop="url" rel="index">
-                    <span itemprop="name">sql相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
           
-
+            <a href="/tags/tfRecord/" rel="tag"># tfRecord</a>
           
-            
+            <a href="/tags/tf-contrib-learn-run-n/" rel="tag"># tf.contrib.learn.run_n</a>
           
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          
-          今天遇到了一个奇怪的bug，举例如下，假设有一张表table
-
-
-
-colA
-colB
-colC
-
-
-
-
-a1
-b1
-NULL
-
-
-a2
-b2
-NULL
-
-
-a3
-b3
-NULL
-
-
-
-当我们使用SELECT COUNT(DISTINCT colA,colB,colC) FROM talbe进行查询
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/30/mysql中对多个字段进行去重计数/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/30/mysql中对多个字段进行去重计数/" rel="next" title="mysql中对多个字段进行去重计数">
+                <i class="fa fa-chevron-left"></i> mysql中对多个字段进行去重计数
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/26/hexo设置持续集成过程中遇到的一些问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邸宇飞">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜路漫漫">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/26/hexo设置持续集成过程中遇到的一些问题/" itemprop="url">hexo设置持续集成过程中遇到的一些问题</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-26T19:42:55+00:00">
-                2017-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/博客/" itemprop="url" rel="index">
-                    <span itemprop="name">博客</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          由于hexo d的方式来布置hexo博客不能满足多台计算机编辑以及备份的需求，所以参考Hexo的版本控制与持续集成的博客，进行了持续集成的配置，效果显著， 终于可以随时随地的编辑博客了。
-但是这个过程中也遇到一个问题，就是当我们使用第三方主题的时候（我使用的是next）主题文件夹不能上传到sourc
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/26/hexo设置持续集成过程中遇到的一些问题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -745,324 +465,30 @@ NULL
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/26/yii1-1版本下访问数据库时需要注意的问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邸宇飞">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜路漫漫">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/26/yii1-1版本下访问数据库时需要注意的问题/" itemprop="url">yii1.1版本下访问数据库时需要注意的问题</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-26T19:42:55+00:00">
-                2017-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web开发/" itemprop="url" rel="index">
-                    <span itemprop="name">web开发</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web开发/数据库访问/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库访问</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
+    <div class="post-spread">
       
         
-          
-          上篇文章提到我们使用了greenplum来代替mysql来适应数据规模较大的情况，同时尽量保证小的改动。服务端我们使用的是yii1.1版本，之所以不是2.0原因很简单，历史选择。但在使用greenplum的过程中我们发现某些查询下速度特别慢，后经过各种测试发现，一旦调用了prepare方法，在数据量
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/26/yii1-1版本下访问数据库时需要注意的问题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/14/mysql与postgresql的区别/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邸宇飞">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="夜路漫漫">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/14/mysql与postgresql的区别/" itemprop="url">mysql与postgresql的区别</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-14T23:11:19+00:00">
-                2017-11-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sql相关/" itemprop="url" rel="index">
-                    <span itemprop="name">sql相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          在工作中由于数据量太大时mysql负载的压力，我们引入了greenplum做我们大数据量表格的数据库，选择greenplum的原因是它在解决大数据存储的同时，尽可能的保持了和mysql一样的操作逻辑（同是关系型数据库，使用sql查询），减小了我们的迁移成本，但是尽管如此，greenplum基于的po
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/14/mysql与postgresql的区别/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
-      
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTk2MS84NTI1"></div>
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
   
 
-
-          </div>
-          
-
-
-          
 
         </div>
         
@@ -1083,8 +509,17 @@ NULL
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1153,6 +588,22 @@ NULL
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tfRecord结构"><span class="nav-number">1.</span> <span class="nav-text">tfRecord结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码示例"><span class="nav-number">2.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1272,6 +723,10 @@ NULL
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
@@ -1300,6 +755,17 @@ NULL
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
