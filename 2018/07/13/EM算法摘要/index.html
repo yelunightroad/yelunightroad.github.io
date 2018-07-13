@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="mysql,postgresql,greenplum," />
+  <meta name="keywords" content="EM," />
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="在工作中由于数据量太大时mysql负载的压力，我们引入了greenplum做我们大数据量表格的数据库，选择greenplum的原因是它在解决大数据存储的同时，尽可能的保持了和mysql一样的操作逻辑（同是关系型数据库，使用sql查询），减小了我们的迁移成本，但是尽管如此，greenplum基于的postgresql引擎和mysql还是存在一定的差异，此文对目前遇到的问题进行了记录，以防止以后再次出">
-<meta name="keywords" content="mysql,postgresql,greenplum">
+<meta name="description" content="EM算法是机器学习领域常见的一种算法了，由于最近又多次看到跟其相关的东西，所以做一个小结以备忘。 个人认为EM中最终的是理解参数和隐状态这两个点。此处引用李航《统计学习方法》中的例子来做说明。  假设有三枚硬币A、B、C，这些硬币正面出现的概率分别是 ππ 、pp 、qq 。进行如下掷硬币试验： 先掷A，如果A是正面则再掷B，如果A是反面则再掷C。对于B或C的结果，如果是正面则记为1，如果是反面则">
+<meta name="keywords" content="EM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql与postgresql的区别">
-<meta property="og:url" content="http://yoursite.com/2017/11/14/mysql与postgresql的区别/index.html">
+<meta property="og:title" content="EM算法小结">
+<meta property="og:url" content="http://yoursite.com/2018/07/13/EM算法摘要/index.html">
 <meta property="og:site_name" content="夜路漫漫">
-<meta property="og:description" content="在工作中由于数据量太大时mysql负载的压力，我们引入了greenplum做我们大数据量表格的数据库，选择greenplum的原因是它在解决大数据存储的同时，尽可能的保持了和mysql一样的操作逻辑（同是关系型数据库，使用sql查询），减小了我们的迁移成本，但是尽管如此，greenplum基于的postgresql引擎和mysql还是存在一定的差异，此文对目前遇到的问题进行了记录，以防止以后再次出">
+<meta property="og:description" content="EM算法是机器学习领域常见的一种算法了，由于最近又多次看到跟其相关的东西，所以做一个小结以备忘。 个人认为EM中最终的是理解参数和隐状态这两个点。此处引用李航《统计学习方法》中的例子来做说明。  假设有三枚硬币A、B、C，这些硬币正面出现的概率分别是 ππ 、pp 、qq 。进行如下掷硬币试验： 先掷A，如果A是正面则再掷B，如果A是反面则再掷C。对于B或C的结果，如果是正面则记为1，如果是反面则">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-07-13T07:55:09.077Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql与postgresql的区别">
-<meta name="twitter:description" content="在工作中由于数据量太大时mysql负载的压力，我们引入了greenplum做我们大数据量表格的数据库，选择greenplum的原因是它在解决大数据存储的同时，尽可能的保持了和mysql一样的操作逻辑（同是关系型数据库，使用sql查询），减小了我们的迁移成本，但是尽管如此，greenplum基于的postgresql引擎和mysql还是存在一定的差异，此文对目前遇到的问题进行了记录，以防止以后再次出">
+<meta name="twitter:title" content="EM算法小结">
+<meta name="twitter:description" content="EM算法是机器学习领域常见的一种算法了，由于最近又多次看到跟其相关的东西，所以做一个小结以备忘。 个人认为EM中最终的是理解参数和隐状态这两个点。此处引用李航《统计学习方法》中的例子来做说明。  假设有三枚硬币A、B、C，这些硬币正面出现的概率分别是 ππ 、pp 、qq 。进行如下掷硬币试验： 先掷A，如果A是正面则再掷B，如果A是反面则再掷C。对于B或C的结果，如果是正面则记为1，如果是反面则">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/11/14/mysql与postgresql的区别/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/13/EM算法摘要/"/>
 
 
 
 
 
-  <title>mysql与postgresql的区别 | 夜路漫漫</title>
+  <title>EM算法小结 | 夜路漫漫</title>
   
 
 
@@ -289,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/14/mysql与postgresql的区别/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/13/EM算法摘要/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="邸宇飞">
@@ -306,7 +306,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">mysql与postgresql的区别</h2>
+          <h2 class="post-title" itemprop="name headline">EM算法小结</h2>
         
 
         <div class="post-meta">
@@ -318,8 +318,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-14T23:11:19+00:00">
-                2017-11-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-13T10:03:59+00:00">
+                2018-07-13
               </time>
             
 
@@ -341,8 +341,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sql相关/" itemprop="url" rel="index">
-                    <span itemprop="name">sql相关</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -378,25 +378,27 @@
       
 
       
-        <p>在工作中由于数据量太大时mysql负载的压力，我们引入了greenplum做我们大数据量表格的数据库，选择greenplum的原因是它在解决大数据存储的同时，尽可能的保持了和mysql一样的操作逻辑（同是关系型数据库，使用sql查询），减小了我们的迁移成本，但是尽管如此，greenplum基于的postgresql引擎和mysql还是存在一定的差异，此文对目前遇到的问题进行了记录，以防止以后再次出现同样的问题。</p>
-<ol>
-<li><p>反引号的区别</p>
-<p>在mysql中，对于保留字使用反引号来加以区分，例如想查询一个表中的select字段，由于select是保留字我们需写成</p>
-<p><code>SELECT `select` FROM table</code></p>
-<p>而在postgresql中不存在这种写法，当identifier为保留字时，则使用双引号</p>
-<p><code>SELECT &quot;select&quot; FROM table</code></p>
-</li>
-<li><p>limit的差别</p>
-<p>在mysql中limit可以间简写为<code>limit 10,100</code>，其等价于<code>limit 100 offset 10</code>而在postgresql中只能采用第二种标准的sql方式</p>
-</li>
-<li><p>对if语句的支持</p>
-<p>mysql支持if 语句，例如<code>if(x&gt;1,1,0)</code>而postgresql只支持case when语句</p>
-</li>
-<li><p>大小写</p>
-<p>mysql中是不区分大小写的，你查询一个字段，写大小写都可以，而在postgresql中是区分大小写的，如果想要字段名大些，必须用双引号将其扩起，由于一些历史原因mysql中使用了大写的字段名，查询也没有问题，但是到postgresql中就失败了，所以建议在sql中，采用下划线分割，不要使用驼峰命名发</p>
-</li>
-</ol>
-<p>以上就是目前遇到的mysql迁移greenplum过程中遇到的一些问题，可以看到大部分是因为mysql在标准sql的基础上给我们提供了更加方便的解决方式，但这种方式在迁移数据库时会给我们带来意想不到的麻烦，所以除非肯定只用一种数据库，否则还是建议按照标准sql书写</p>
+        <p>EM算法是机器学习领域常见的一种算法了，由于最近又多次看到跟其相关的东西，所以做一个小结以备忘。</p>
+<p>个人认为EM中最终的是理解参数和隐状态这两个点。此处引用李航《统计学习方法》中的例子来做说明。</p>
+<blockquote>
+<p>假设有三枚硬币A、B、C，这些硬币正面出现的概率分别是 ππ 、pp 、qq 。进行如下掷硬币试验： 先掷A，如果A是正面则再掷B，如果A是反面则再掷C。对于B或C的结果，如果是正面则记为1，如果是反面则记为0。进行 NN 次独立重复实验，得到结果。现在只能观测到结果，不能观测到掷硬币的过程，估计模型参数 θ=(π,p,q) 。 </p>
+</blockquote>
+<p>在这个问题中，实验结果是可观测数据$ Y=(y_1,…,y_N)$，硬币A的结果是不可观测数据 $Z=(z_1,…,z_N)$且 z 只有两种可能取值1和0。</p>
+<p>我们需要求得$\hat{\theta}=arg max<em>{\theta}{logP(Y|\theta)}$这个问题没有解析解，只能迭代求解，因为$p(y|\theta)=\sum</em>{Z}P(Z|\theta)P(Y|Z,\theta)$需要依赖于隐状态。所以就想出了一种迭代求值的方式</p>
+<p>先假设一个初始参数$\theta^0$</p>
+<p>E步被称为期望步，通俗点说就是利用上一步的参数$\theta^{i-1}$，以此参数求出隐状态的条件概率概率，严谨一点定义的话我们需要传说中的Q函数：完全数据的对数似然函数（观测数据和隐变量数据构成完全数据）关于在给定观测数据Y和当前参数$\theta^{i-1}$下对未观测数据Z的条件概率分布的期望。公式如下：<br>$$<br>\begin{aligned}<br>Q(\theta,\theta^{(i)})&amp;=E<em>Z[logP(Y,Z|\theta)]\<br>&amp;=\sum</em>{Z}logP(Y,Z|\theta)P(Z|Y,\theta^{(i-1)})<br>\end{aligned}<br>\tag{1}\label{1}<br>$$<br>这里，$P(Z|Y,\theta^{(i-1)})$是在给定观测数据Y和上一轮参数估计$\theta^{(i-1)}$下隐变量数据Z的条件概率分布，也就是我们E步求得最重要的一个值，三硬币模型中就是求得$y_j$来自硬币B的概率（已知y和$\theta$求得硬币A证明朝上的概率）</p>
+<p>M步：求使$Q(\theta,\theta^{(i)})$极大化的$\theta$，更新$\theta^{(i)}=arg \max_{\theta}Q(\theta,\theta^{(i-1)})$，在三硬币模型中也就是知道每次硬币来自硬币B的概率$\mu<em>i$的情况下更新参数$\theta$，二项分布最优值为$\frac{k}{n}$时，$\pi^{(i)}=\frac{1}{n}\sum</em>{j=1}^{n}\mu<em>j^{i}$，$p^{(i)}=\frac{\sum</em>{j=1}^{n}\mu_j^{i}y<em>i}{\sum</em>{j=1}^{n}\mu_j^{i}}$</p>
+<p>至于为什么不断迭代Q函数就可以获取有隐状态下的最大似然，用Jensen不等式证明，这里不展开。</p>
+<p>再通过几个例子加强下</p>
+<p><strong>例1:</strong>现在一个班里有100个男生，100个女生。我们假定男生的身高服从正态分布 ，女生的身高则服从另一个正态分布：  。假如男女是分开的，这时候我们可以用极大似然法（MLE），分别通过这100个男生和100个女生的样本来估计这两个正态分布的参数。但现在情况要更复杂一点，就是这100个男生和100个女生混在一起了。我们拥有100个人的身高数据，却不知道这100个人每一个是男生还是女生。</p>
+<p>那么我们一个样本是男生还是女生就是一个隐状态。</p>
+<p>E步，我们利用先验知识之类的先假设出男生和女生的正态分布参数（或者来自于迭代的上一步），这样我们就可以估算出一个样本是男生还是女生</p>
+<p>M步，我们区分出了每个样本是男生还是女生，就可以更新正态分布参数</p>
+<p><strong>例2：</strong>对于常见的k-means算法，我们认为每个点属于哪个模型是隐状态，聚类中心点是参数</p>
+<p>E步，假设一些聚类中心点，求取隐状态每个点的类别</p>
+<p>M步，根据隐状态更新中心点</p>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>理解EM算法最重要的个人认为是找到隐状态和参数，E步根据参数求取隐状态，M步根据隐状态求取是Q函数最大的参数。</p>
 
       
     </div>
@@ -414,11 +416,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag"># mysql</a>
-          
-            <a href="/tags/postgresql/" rel="tag"># postgresql</a>
-          
-            <a href="/tags/greenplum/" rel="tag"># greenplum</a>
+            <a href="/tags/EM/" rel="tag"># EM</a>
           
         </div>
       
@@ -431,15 +429,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/04/11/TensorFlow中的axis理解/" rel="next" title="TensorFlow中的axis理解">
+                <i class="fa fa-chevron-left"></i> TensorFlow中的axis理解
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/26/yii1-1版本下访问数据库时需要注意的问题/" rel="prev" title="yii1.1版本下访问数据库时需要注意的问题">
-                yii1.1版本下访问数据库时需要注意的问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -499,8 +497,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -569,6 +576,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
