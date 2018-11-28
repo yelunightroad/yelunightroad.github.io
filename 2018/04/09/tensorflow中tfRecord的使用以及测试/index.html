@@ -6,10 +6,10 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
@@ -68,13 +68,13 @@
 
 
 
-  <meta name="keywords" content="TensorFlow,tfRecord,tf.contrib.learn.run_n," />
+  <meta name="keywords" content="TensorFlow,tfRecord,tf.contrib.learn.run_n,">
 
 
 
 
 
-  <link rel="alternate" href="/atom.xml" title="夜路漫漫" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="夜路漫漫" type="application/atom+xml">
 
 
 
@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="夜路漫漫">
 <meta property="og:description" content="tfRecord是TensorFlow官方推荐的标准数据格式，对于存储字典类型的数据比较友好，所以撰写此文记录一下使用过程中的一点经验。 tfRecord结构tfRecord中存储的记录由tf.train.Example定义，其实就是一个protocol buffer文件，定义如下： 123456789101112131415message Example &amp;#123; Features feat">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-13T07:55:09.077Z">
+<meta property="og:updated_time" content="2018-11-28T11:07:27.033Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow中tfRecord的使用以及测试">
 <meta name="twitter:description" content="tfRecord是TensorFlow官方推荐的标准数据格式，对于存储字典类型的数据比较友好，所以撰写此文记录一下使用过程中的一点经验。 tfRecord结构tfRecord中存储的记录由tf.train.Example定义，其实就是一个protocol buffer文件，定义如下： 123456789101112131415message Example &amp;#123; Features feat">
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/09/tensorflow中tfRecord的使用以及测试/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/09/tensorflow中tfRecord的使用以及测试/">
 
 
 
@@ -140,7 +140,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -150,13 +150,13 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">夜路漫漫</span>
         <span class="logo-line-after"><i></i></span>
@@ -186,7 +186,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -196,7 +196,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -206,7 +206,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -216,7 +216,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -229,7 +229,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
             
             搜索
           </a>
@@ -250,9 +250,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -284,20 +282,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/09/tensorflow中tfRecord的使用以及测试/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="邸宇飞">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="夜路漫漫">
     </span>
 
@@ -329,7 +327,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -340,7 +338,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
                   <a href="/categories/TensorFlow/" itemprop="url" rel="index">
                     <span itemprop="name">TensorFlow</span>
                   </a>
@@ -380,7 +378,7 @@
       
         <p>tfRecord是TensorFlow官方推荐的标准数据格式，对于存储字典类型的数据比较友好，所以撰写此文记录一下使用过程中的一点经验。</p>
 <h2 id="tfRecord结构"><a href="#tfRecord结构" class="headerlink" title="tfRecord结构"></a>tfRecord结构</h2><p>tfRecord中存储的记录由tf.train.Example定义，其实就是一个protocol buffer文件，定义如下：</p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Example</span> </span>&#123;</span><br><span class="line"> Features features = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Features</span></span>&#123;</span><br><span class="line"> map&lt;<span class="built_in">string</span>,Feature&gt; featrue = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Feature</span></span>&#123;</span><br><span class="line">    oneof kind&#123;</span><br><span class="line">        BytesList bytes_list = <span class="number">1</span>;</span><br><span class="line">        FloatList float_list = <span class="number">2</span>;</span><br><span class="line">        Int64List int64_list = <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">message Example &#123;</span><br><span class="line"> Features features = 1;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">message Features&#123;</span><br><span class="line"> map&lt;string,Feature&gt; featrue = 1;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">message Feature&#123;</span><br><span class="line">    oneof kind&#123;</span><br><span class="line">        BytesList bytes_list = 1;</span><br><span class="line">        FloatList float_list = 2;</span><br><span class="line">        Int64List int64_list = 3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>可以看到其主要包含了一个字符串格式的key，以及字符串、浮点数或者整数类型的列表构成的value</p>
 <h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">keys=[[<span class="number">1.0</span>,<span class="number">2.0</span>],[<span class="number">2.0</span>,<span class="number">3.0</span>],[<span class="number">1</span>,<span class="number">2</span>]]</span><br><span class="line">keys2=[[<span class="number">1.0</span>,<span class="number">2.0</span>],[<span class="number">2.0</span>,<span class="number">3.0</span>],[<span class="number">3.0</span>]]</span><br><span class="line"></span><br><span class="line">strtest=<span class="string">'aaa'</span></span><br><span class="line">sess=tf.InteractiveSession()</span><br><span class="line">sess.run(tf.global_variables_initializer())</span><br></pre></td></tr></table></figure>
 <p>基础变量，没什么可解释的</p>
@@ -530,7 +528,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">邸宇飞</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -543,7 +541,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -565,7 +563,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
