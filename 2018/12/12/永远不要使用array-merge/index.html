@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="array_merge是php中的一个常用函数，我在之前也经常使用这个函数，知道有一天我发现我的程序运行的比预想中要慢的多，经过逐行排查发现竟然是array_merge函数惹得祸 123456$primes = array();while (xxx)&amp;#123;    $data = get_some_data();	$primes = array_merge($primes, $data);&amp;#">
+<meta name="description" content="array_merge是php中的一个常用函数，我在之前也经常使用这个函数，直到有一天我发现我的程序运行的比预想中要慢的多，经过逐行排查发现竟然是array_merge函数惹得祸 123456$primes = array();while (xxx)&amp;#123;    $data = get_some_data();    $primes = array_merge($primes, $data)">
 <meta name="keywords" content="php">
 <meta property="og:type" content="article">
 <meta property="og:title" content="永远不要使用array_merge">
 <meta property="og:url" content="http://yoursite.com/2018/12/12/永远不要使用array-merge/index.html">
 <meta property="og:site_name" content="夜路漫漫">
-<meta property="og:description" content="array_merge是php中的一个常用函数，我在之前也经常使用这个函数，知道有一天我发现我的程序运行的比预想中要慢的多，经过逐行排查发现竟然是array_merge函数惹得祸 123456$primes = array();while (xxx)&amp;#123;    $data = get_some_data();	$primes = array_merge($primes, $data);&amp;#">
+<meta property="og:description" content="array_merge是php中的一个常用函数，我在之前也经常使用这个函数，直到有一天我发现我的程序运行的比预想中要慢的多，经过逐行排查发现竟然是array_merge函数惹得祸 123456$primes = array();while (xxx)&amp;#123;    $data = get_some_data();    $primes = array_merge($primes, $data)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-12T09:13:10.827Z">
+<meta property="og:updated_time" content="2018-12-12T09:17:28.877Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="永远不要使用array_merge">
-<meta name="twitter:description" content="array_merge是php中的一个常用函数，我在之前也经常使用这个函数，知道有一天我发现我的程序运行的比预想中要慢的多，经过逐行排查发现竟然是array_merge函数惹得祸 123456$primes = array();while (xxx)&amp;#123;    $data = get_some_data();	$primes = array_merge($primes, $data);&amp;#">
+<meta name="twitter:description" content="array_merge是php中的一个常用函数，我在之前也经常使用这个函数，直到有一天我发现我的程序运行的比预想中要慢的多，经过逐行排查发现竟然是array_merge函数惹得祸 123456$primes = array();while (xxx)&amp;#123;    $data = get_some_data();    $primes = array_merge($primes, $data)">
 
 
 
@@ -354,8 +354,8 @@
       
 
       
-        <p>array_merge是php中的一个常用函数，我在之前也经常使用这个函数，知道有一天我发现我的程序运行的比预想中要慢的多，经过逐行排查发现竟然是array_merge函数惹得祸</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$primes = <span class="keyword">array</span>();</span><br><span class="line"><span class="keyword">while</span> (xxx)</span><br><span class="line">&#123;</span><br><span class="line">    $data = get_some_data();</span><br><span class="line">	$primes = array_merge($primes, $data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>array_merge是php中的一个常用函数，我在之前也经常使用这个函数，直到有一天我发现我的程序运行的比预想中要慢的多，经过逐行排查发现竟然是array_merge函数惹得祸</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$primes = <span class="keyword">array</span>();</span><br><span class="line"><span class="keyword">while</span> (xxx)</span><br><span class="line">&#123;</span><br><span class="line">    $data = get_some_data();</span><br><span class="line">    $primes = array_merge($primes, $data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当你使用类似上面的函数去不断的合并数组，尤其是最终结果较大时你会发现时间变得不可忍受。</p>
 <p>解决的方法也很简单</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$primes = <span class="keyword">array</span>();</span><br><span class="line"><span class="keyword">while</span> (xxx)</span><br><span class="line">&#123;</span><br><span class="line">    $data = get_some_data();</span><br><span class="line">    <span class="keyword">foreach</span>($data <span class="keyword">as</span> $val) &#123;</span><br><span class="line">        $primes[] = $val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

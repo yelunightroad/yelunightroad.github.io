@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[永远不要使用array_merge]]></title>
     <url>%2F2018%2F12%2F12%2F%E6%B0%B8%E8%BF%9C%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8array-merge%2F</url>
-    <content type="text"><![CDATA[array_merge是php中的一个常用函数，我在之前也经常使用这个函数，知道有一天我发现我的程序运行的比预想中要慢的多，经过逐行排查发现竟然是array_merge函数惹得祸 123456$primes = array();while (xxx)&#123; $data = get_some_data(); $primes = array_merge($primes, $data);&#125; 当你使用类似上面的函数去不断的合并数组，尤其是最终结果较大时你会发现时间变得不可忍受。 解决的方法也很简单 12345678$primes = array();while (xxx)&#123; $data = get_some_data(); foreach($data as $val) &#123; $primes[] = $val; &#125;&#125; 差别大到你无法想象。]]></content>
+    <content type="text"><![CDATA[array_merge是php中的一个常用函数，我在之前也经常使用这个函数，直到有一天我发现我的程序运行的比预想中要慢的多，经过逐行排查发现竟然是array_merge函数惹得祸 123456$primes = array();while (xxx)&#123; $data = get_some_data(); $primes = array_merge($primes, $data);&#125; 当你使用类似上面的函数去不断的合并数组，尤其是最终结果较大时你会发现时间变得不可忍受。 解决的方法也很简单 12345678$primes = array();while (xxx)&#123; $data = get_some_data(); foreach($data as $val) &#123; $primes[] = $val; &#125;&#125; 差别大到你无法想象。]]></content>
       <tags>
         <tag>php</tag>
       </tags>
