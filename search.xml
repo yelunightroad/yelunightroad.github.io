@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[使用训练好的word2vec词典时需要注意的问题]]></title>
+    <url>%2F2019%2F01%2F16%2F%E4%BD%BF%E7%94%A8%E8%AE%AD%E7%BB%83%E5%A5%BD%E7%9A%84word2vec%E8%AF%8D%E5%85%B8%E6%97%B6%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[在模型中使用训练好的word2vec向量时，我们通常使用一下代码 12self.reader = tf.train.NewCheckpointReader(self.embedding_cpt_path)self.embedding_W = self.reader.get_tensor('w_in') #w_in是训练好的词向量变量 但是当该词向量字典过大时，我们就会遇到以下错误 1ValueError: Cannot create a tensor proto whose content is larger than 2GB 这是因为除变量外，像常量等很多都不允许超过2GB（因为要序列化到pb），所以当你要加载一个2GB以上的数据时，将它声明为变量。 12345self.embedding_W = tf.Variable(tf.constant(0.0, shape=[word_size, embedding_size]), trainable=False, name="e_w")self.embedding_saver = tf.train.Saver(&#123;"w_in": self.embedding_W&#125;)sess = tf.Session()self.embedding_saver.restore(sess, "checkpoint_filename.ckpt") #在全局初始化后进行 参考资料 https://stackoverflow.com/questions/35687678/using-a-pre-trained-word-embedding-word2vec-or-glove-in-tensorflow https://stackoverflow.com/questions/51244489/valueerror-cannot-create-a-tensor-proto-whose-content-is-larger-than-2gb]]></content>
+      <categories>
+        <category>TensorFlow</category>
+      </categories>
+      <tags>
+        <tag>TensorFlow</tag>
+        <tag>word2vec</tag>
+        <tag>larger than 2GB</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[永远不要使用array_merge]]></title>
     <url>%2F2018%2F12%2F12%2F%E6%B0%B8%E8%BF%9C%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8array-merge%2F</url>
     <content type="text"><![CDATA[array_merge是php中的一个常用函数，我在之前也经常使用这个函数，直到有一天我发现我的程序运行的比预想中要慢的多，经过逐行排查发现竟然是array_merge函数惹得祸 123456$primes = array();while (xxx)&#123; $data = get_some_data(); $primes = array_merge($primes, $data);&#125; 当你使用类似上面的函数去不断的合并数组，尤其是最终结果较大时你会发现时间变得不可忍受。 解决的方法也很简单 12345678$primes = array();while (xxx)&#123; $data = get_some_data(); foreach($data as $val) &#123; $primes[] = $val; &#125;&#125; 差别大到你无法想象。]]></content>
